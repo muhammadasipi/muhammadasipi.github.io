@@ -1,9 +1,12 @@
 ---
-const formspreeEndpoint = 'https://formspree.io/f/TODO_FORM_ID';
+import { site } from '../site.config';
+
+const formspreeEndpoint = site.formspreeEndpoint;
+const hasForm = Boolean(formspreeEndpoint);
 ---
 
 <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
-  <div class="md:col-span-5">
+  <div class={hasForm ? 'md:col-span-5' : 'md:col-span-8'}>
     <p data-i18n="contact.intro" class="max-w-[60ch] text-base leading-relaxed text-muted">
       Open to R&amp;D engineering roles in water and membrane technology, doctoral scholarship opportunities, and research collaborations.
     </p>
@@ -48,16 +51,21 @@ const formspreeEndpoint = 'https://formspree.io/f/TODO_FORM_ID';
         >
           LinkedIn
         </a>
-        <span
-          data-i18n="hero.cta.cv"
-          class="inline-flex min-h-[44px] items-center rounded border border-dashed border-border px-4 py-2 font-mono text-xs text-muted"
-        >
-          Download CV [TODO]
-        </span>
+        {site.cvUrl && (
+          <a
+            href={site.cvUrl}
+            download
+            data-i18n="hero.cta.cv"
+            class="inline-flex min-h-[44px] items-center rounded border border-border bg-elevated px-4 py-2 text-sm text-ink hover:border-accent hover:text-accent"
+          >
+            Download CV
+          </a>
+        )}
       </div>
     </div>
   </div>
 
+  {hasForm && (
   <form
     id="contact-form"
     action={formspreeEndpoint}
@@ -133,4 +141,5 @@ const formspreeEndpoint = 'https://formspree.io/f/TODO_FORM_ID';
       <p id="form-status" role="status" aria-live="polite" class="text-xs text-muted"></p>
     </div>
   </form>
+  )}
 </div>

@@ -5,6 +5,9 @@ import Hero from '../components/Hero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import ContactForm from '../components/ContactForm.astro';
+import { ui } from '../i18n/ui';
+
+const t = ui.en;
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const publications = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
@@ -112,10 +115,10 @@ const skillGroups = [
           <div class="rounded border border-border bg-elevated p-6">
             <span class="font-mono text-xs text-accent">{area.code}</span>
             <h3 data-i18n={`research.${area.key}.title`} class="mt-2 font-sans text-lg font-semibold tracking-tight text-ink">
-              {area.key}
+              {t[`research.${area.key}.title` as keyof typeof t]}
             </h3>
             <p data-i18n={`research.${area.key}.desc`} class="mt-2 text-sm leading-relaxed text-muted">
-              Description
+              {t[`research.${area.key}.desc` as keyof typeof t]}
             </p>
           </div>
         ))}
@@ -151,6 +154,26 @@ const skillGroups = [
           <PublicationItem publication={pub} />
         ))}
       </div>
+
+      <div class="mt-10">
+        <h3 data-i18n="conferences.heading" class="font-sans text-lg font-semibold tracking-tight text-ink">
+          Conference Presentations
+        </h3>
+        <div class="mt-4 rounded border border-border bg-elevated p-5">
+          <p data-i18n="conferences.eds2025.title" class="font-sans text-base font-semibold leading-snug text-ink">
+            Unidirectional porous membrane prepared by combined crystallization and diffusion method for desalination
+          </p>
+          <p class="mt-2 text-sm text-ink">
+            <strong class="font-semibold">M Asipi Qostolani</strong>, Mohammed Abdul Azeem, Turki Nabieh Baroud
+          </p>
+          <p data-i18n="conferences.eds2025.event" class="mt-1 text-sm text-muted">
+            European Desalination Society (EDS) Conference 2025: Desalination for the Environment: Clean Water and Energy
+          </p>
+          <p data-i18n="conferences.eds2025.meta" class="mt-2 font-mono text-xs text-accent">
+            Porto, Portugal | 27-30 April 2025 | Abstract No. 38
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -164,10 +187,10 @@ const skillGroups = [
         {skillGroups.map((group) => (
           <div class="rounded border border-border bg-elevated p-6">
             <h3 data-i18n={group.key} class="font-sans text-lg font-semibold tracking-tight text-ink">
-              {group.key}
+              {t[group.key as keyof typeof t]}
             </h3>
             <p data-i18n={group.descKey} class="mt-1.5 text-sm leading-relaxed text-muted">
-              Category overview
+              {t[group.descKey as keyof typeof t]}
             </p>
             <ul class="mt-4 flex flex-wrap gap-2">
               {group.items.map((item) => (
@@ -220,25 +243,6 @@ const skillGroups = [
             </li>
           </ol>
 
-          <div class="border-t border-border pt-8">
-            <h3 data-i18n="conferences.heading" class="font-sans text-lg font-semibold tracking-tight text-ink">
-              Conferences
-            </h3>
-            <div class="mt-4 rounded border border-border bg-elevated p-5">
-              <p data-i18n="conferences.eds2025.title" class="font-sans text-base font-semibold leading-snug text-ink">
-                "Unidirectional porous membrane prepared by combined crystallization and diffusion method for desalination"
-              </p>
-              <p data-i18n="conferences.eds2025.authors" class="mt-2 text-sm text-ink">
-                M. Asipi Qostolani, Mohammed Abdul Azeem, Turki Nabieh Baroud
-              </p>
-              <p data-i18n="conferences.eds2025.event" class="mt-1 text-sm text-muted">
-                European Desalination Society (EDS) Conference 2025: Desalination for the Environment: Clean Water and Energy
-              </p>
-              <p data-i18n="conferences.eds2025.meta" class="mt-2 font-mono text-xs text-accent">
-                Porto, Portugal | 27-30 April 2025 | Abstract No. 38
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
