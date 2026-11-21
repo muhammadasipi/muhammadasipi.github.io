@@ -62,7 +62,18 @@ const articleSchemas = publications.map((pub) => {
   if (pub.data.journal) schema.isPartOf = { '@type': 'Periodical', name: pub.data.journal };
   if (pub.data.volume) schema.volumeNumber = pub.data.volume;
   if (pub.data.issue) schema.issueNumber = pub.data.issue;
-  if (pub.data.page) schema.pageStart = pub.data.page;
+  if (pub.data.page) {
+    const [start, end] = pub.data.page.split('-');
+    schema.pageStart = start;
+    if (end) schema.pageEnd = end;
+  }
+  if (pub.data.doi) schema.sameAs = `https://doi.org/${pub.data.doi}`;
+  if (pub.data.authors) {
+    schema.author = pub.data.authors.split(', ').map((name) => ({
+      '@type': 'Person',
+      name,
+    }));
+  }
   return schema;
 });
 ---

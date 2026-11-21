@@ -7,6 +7,8 @@ interface Props {
 
 const { publication } = Astro.props;
 const { data } = publication;
+const pagePrefix = data.page && data.page.includes('-') ? 'pp.' : 'p.';
+const authorParts = data.authors ? data.authors.split(', ') : [];
 ---
 
 <article class="rounded border border-border bg-elevated p-6">
@@ -21,39 +23,60 @@ const { data } = publication;
         </p>
       )}
 
-      <dl class="mt-4 grid grid-cols-1 gap-y-2 text-sm sm:grid-cols-2 sm:gap-x-6">
+      <dl class="mt-4 space-y-2 text-sm">
         <div>
           <dt data-i18n="publications.authorsLabel" class="inline font-mono text-xs text-muted">Authors</dt>:
           <dd class="inline text-ink">
-            {data.authors ? data.authors : <span class="todo-badge">[TODO: Complete author list]</span>}
-          </dd>
-        </div>
-
-        <div>
-          <dt data-i18n="publications.journalLabel" class="inline font-mono text-xs text-muted">Journal</dt>:
-          <dd class="inline text-ink">
-            {data.journal ? (
-              `${data.journal}, Vol. ${data.volume}, Issue ${data.issue}, p. ${data.page}`
+            {authorParts.length > 0 ? (
+              authorParts.map((author, idx) => (
+                <>
+                  {author === 'M Asipi Qostolani' ? (
+                    <strong class="font-semibold text-ink">{author}</strong>
+                  ) : (
+                    <span>{author}</span>
+                  )}
+                  {idx < authorParts.length - 1 ? ', ' : ''}
+                </>
+              ))
             ) : (
-              <span>
-                <span class="todo-badge">[TODO: Verify journal name]</span> (Vol. {data.volume}, Issue {data.issue}, p. {data.page})
-              </span>
+              <span class="todo-badge">[TODO: Complete author list]</span>
             )}
           </dd>
         </div>
 
-        <div>
-          <dt data-i18n="publications.yearLabel" class="inline font-mono text-xs text-muted">Year</dt>:
-          <dd class="inline text-ink">
-            {data.year ? data.year : <span class="todo-badge">[TODO: Year]</span>}
-          </dd>
-        </div>
+        <div class="grid grid-cols-1 gap-y-2 sm:grid-cols-2 sm:gap-x-6">
+          <div>
+            <dt data-i18n="publications.journalLabel" class="inline font-mono text-xs text-muted">Journal</dt>:
+            <dd class="inline text-ink">
+              {data.journal ? (
+                `${data.journal}, Vol. ${data.volume}, Issue ${data.issue}, ${pagePrefix} ${data.page}`
+              ) : (
+                <span>
+                  <span class="todo-badge">[TODO: Verify journal name]</span> (Vol. {data.volume}, Issue {data.issue}, {pagePrefix} {data.page})
+                </span>
+              )}
+            </dd>
+          </div>
 
-        <div>
-          <dt data-i18n="publications.doiLabel" class="inline font-mono text-xs text-muted">DOI</dt>:
-          <dd class="inline text-ink">
-            {data.doi ? data.doi : <span class="todo-badge">[TODO: DOI]</span>}
-          </dd>
+          <div>
+            <dt data-i18n="publications.yearLabel" class="inline font-mono text-xs text-muted">Year</dt>:
+            <dd class="inline text-ink">
+              {data.year ? data.year : <span class="todo-badge">[TODO: Year]</span>}
+            </dd>
+          </div>
+
+          <div class="sm:col-span-2">
+            <dt data-i18n="publications.doiLabel" class="inline font-mono text-xs text-muted">DOI</dt>:
+            <dd class="inline font-mono text-xs text-ink">
+              {data.doi ? (
+                <a href={`https://doi.org/${data.doi}`} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
+                  {data.doi}
+                </a>
+              ) : (
+                <span class="todo-badge">[TODO: DOI]</span>
+              )}
+            </dd>
+          </div>
         </div>
       </dl>
     </div>

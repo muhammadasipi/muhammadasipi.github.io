@@ -32,6 +32,5 @@ Open `http://localhost:4321` in your browser.
 
 - [ ] **Profile Photo:** Add an optimized WebP/AVIF portrait to `public/images/profile.webp` and replace the placeholder in `src/components/Hero.astro`.
 - [ ] **CV PDF:** Add your CV file to `public/cv-m-asipi-qostolani.pdf` and replace the `Download CV [TODO]` badge in `Hero.astro` and `ContactForm.astro` with `<a href="/cv-m-asipi-qostolani.pdf" download>`.
-- [ ] **Publication Metadata (`src/content/publications/01-eggshell-hydroxyapatite.md`):** Verify the full title on the ACS publisher page, confirm exact journal name, year, DOI, and exact published author order.
 - [ ] **Project Case Studies (`src/content/projects/*.md`):** Add `status`, `summary`, `problem`, `methods`, `results`, and `limitations` when ready.
 - [ ] **Contact Form (`src/components/ContactForm.astro`):** Replace `TODO_FORM_ID` with your Formspree form ID.
