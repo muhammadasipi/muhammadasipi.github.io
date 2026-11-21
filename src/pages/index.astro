@@ -30,6 +30,16 @@ const skillGroups = [
     key: 'skills.cat3',
     items: ['Polymeric Membranes', 'PVDF Systems', 'Non-Solvent Induced Phase Separation (NIPS)', 'Membrane Morphology & Macrovoids'],
   },
+  {
+    key: 'skills.cat4',
+    items: [
+      'Phase Inversion Membrane Fabrication',
+      'Electrospinning',
+      'Scanning Electron Microscopy (SEM)',
+      'Water Contact Angle Measurement',
+      'Membrane Distillation (MD) Flux Testing',
+    ],
+  },
 ];
 ---
 
@@ -54,12 +64,12 @@ const skillGroups = [
           <dl class="mt-6 grid grid-cols-1 gap-4 border-t border-border pt-6 text-sm sm:grid-cols-2">
             <div>
               <dt data-i18n="about.meta.locationLabel" class="font-mono text-xs text-muted">Location</dt>
-              <dd data-i18n="about.meta.locationValue" class="mt-1 text-ink">[TODO: City, Country]</dd>
+              <dd data-i18n="about.meta.locationValue" class="mt-1 text-ink">Bandung, Indonesia</dd>
             </div>
             <div>
               <dt data-i18n="about.meta.languagesLabel" class="font-mono text-xs text-muted">Languages</dt>
               <dd data-i18n="about.meta.languagesValue" class="mt-1 text-ink">
-                Indonesian ([TODO: proficiency]), English ([TODO: proficiency])
+                Indonesian (Native), English (Fluent)
               </dd>
             </div>
           </dl>
@@ -145,15 +155,6 @@ const skillGroups = [
             </ul>
           </div>
         ))}
-
-        <div class="rounded border border-dashed border-border bg-elevated p-6">
-          <h3 data-i18n="skills.cat4" class="font-sans text-lg font-semibold tracking-tight text-ink">
-            Membrane Fabrication &amp; Characterization
-          </h3>
-          <p data-i18n="skills.cat4.todo" class="mt-3 font-mono text-xs leading-relaxed text-accent">
-            [TODO: Add confirmed fabrication and characterization techniques, e.g., phase inversion, electrospinning, SEM, contact angle, MD flux testing]
-          </p>
-        </div>
       </div>
     </div>
   </section>
@@ -167,33 +168,55 @@ const skillGroups = [
           </h2>
         </div>
 
-        <ol class="relative space-y-8 border-l border-border pl-6 md:col-span-8">
-          <li>
-            <span class="absolute -left-[5px] mt-1.5 h-2.5 w-2.5 rounded-full bg-accent"></span>
-            <h3 data-i18n="education.ms.degree" class="font-sans text-lg font-semibold tracking-tight text-ink">
-              MS in Materials Science and Engineering
-            </h3>
-            <p data-i18n="education.ms.inst" class="mt-1 text-sm text-ink">
-              King Fahd University of Petroleum &amp; Minerals (KFUPM)
-            </p>
-            <p data-i18n="education.ms.meta" class="mt-1 font-mono text-xs text-accent">
-              Graduation Year: [TODO] | Advisor: [TODO]
-            </p>
-          </li>
+        <div class="space-y-10 md:col-span-8">
+          <ol class="relative space-y-8 border-l border-border pl-6">
+            <li>
+              <span class="absolute -left-[5px] mt-1.5 h-2.5 w-2.5 rounded-full bg-accent"></span>
+              <h3 data-i18n="education.ms.degree" class="font-sans text-lg font-semibold tracking-tight text-ink">
+                MS in Materials Science and Engineering
+              </h3>
+              <p data-i18n="education.ms.inst" class="mt-1 text-sm text-ink">
+                King Fahd University of Petroleum &amp; Minerals (KFUPM)
+              </p>
+              <p data-i18n="education.ms.meta" class="mt-1 font-mono text-xs text-muted">
+                Graduation Year: 2025 | Advisor: Prof. Turki Nabieh Baroud
+              </p>
+            </li>
 
-          <li>
-            <span class="absolute -left-[5px] mt-1.5 h-2.5 w-2.5 rounded-full border border-accent bg-surface"></span>
-            <h3 data-i18n="education.bs.degree" class="font-sans text-lg font-semibold tracking-tight text-ink">
-              Bachelor's Degree in [TODO: Major]
+            <li>
+              <span class="absolute -left-[5px] mt-1.5 h-2.5 w-2.5 rounded-full border border-accent bg-surface"></span>
+              <h3 data-i18n="education.bs.degree" class="font-sans text-lg font-semibold tracking-tight text-ink">
+                Bachelor's Degree in Physics (Materials Physics Specialization)
+              </h3>
+              <p data-i18n="education.bs.inst" class="mt-1 text-sm text-ink">
+                UIN Sunan Gunung Djati Bandung
+              </p>
+              <p data-i18n="education.bs.meta" class="mt-1 font-mono text-xs text-muted">
+                Graduation Year: 2020
+              </p>
+            </li>
+          </ol>
+
+          <div class="border-t border-border pt-8">
+            <h3 data-i18n="conferences.heading" class="font-sans text-lg font-semibold tracking-tight text-ink">
+              Conferences
             </h3>
-            <p data-i18n="education.bs.inst" class="mt-1 text-sm text-ink">
-              [TODO: University Name]
-            </p>
-            <p data-i18n="education.bs.meta" class="mt-1 font-mono text-xs text-accent">
-              Graduation Year: [TODO]
-            </p>
-          </li>
-        </ol>
+            <div class="mt-4 rounded border border-border bg-elevated p-5">
+              <p data-i18n="conferences.eds2025.title" class="font-sans text-base font-semibold leading-snug text-ink">
+                "Unidirectional porous membrane prepared by combined crystallization and diffusion method for desalination"
+              </p>
+              <p data-i18n="conferences.eds2025.authors" class="mt-2 text-sm text-ink">
+                M. Asipi Qostolani, Mohammed Abdul Azeem, Turki Nabieh Baroud
+              </p>
+              <p data-i18n="conferences.eds2025.event" class="mt-1 text-sm text-muted">
+                European Desalination Society (EDS) Conference 2025: Desalination for the Environment: Clean Water and Energy
+              </p>
+              <p data-i18n="conferences.eds2025.meta" class="mt-2 font-mono text-xs text-accent">
+                Porto, Portugal | 27-30 April 2025 | Abstract No. 38
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

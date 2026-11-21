@@ -21,11 +21,25 @@ const personSchema = {
   name: 'M Asipi Qostolani',
   jobTitle: 'Membrane and Materials Researcher',
   url: 'https://muhammadasipi.github.io',
-  sameAs: ['https://github.com/muhammadasipi'],
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'King Fahd University of Petroleum & Minerals',
+  sameAs: [
+    'https://github.com/muhammadasipi',
+    'https://www.linkedin.com/in/m-asipi-qostolani-30155512b',
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Bandung',
+    addressCountry: 'Indonesia',
   },
+  alumniOf: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'King Fahd University of Petroleum & Minerals',
+    },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'UIN Sunan Gunung Djati Bandung',
+    },
+  ],
   knowsAbout: [
     'Membrane technology',
     'Membrane distillation',
