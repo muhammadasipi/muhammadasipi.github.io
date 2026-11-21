@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  publication: CollectionEntry<'publications'>;
+}
+
+const { publication } = Astro.props;
+const { data } = publication;
+---
+
+<article class="rounded border border-border bg-elevated p-6">
+  <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+    <div class="max-w-[65ch]">
+      <h3 class="font-serif text-xl font-normal leading-snug text-ink">
+        "{data.title}"
+      </h3>
+      {data.fullTitleTodo && (
+        <p class="mt-1">
+          <span class="todo-badge">[TODO: Verify full title on publisher page]</span>
+        </p>
+      )}
+
+      <dl class="mt-4 grid grid-cols-1 gap-y-2 text-sm sm:grid-cols-2 sm:gap-x-6">
+        <div>
+          <dt data-i18n="publications.authorsLabel" class="inline font-mono text-xs text-muted">Authors</dt>:
+          <dd class="inline text-ink">
+            {data.authors ? data.authors : <span class="todo-badge">[TODO: Complete author list]</span>}
+          </dd>
+        </div>
+
+        <div>
+          <dt data-i18n="publications.journalLabel" class="inline font-mono text-xs text-muted">Journal</dt>:
+          <dd class="inline text-ink">
+            {data.journal ? (
+              `${data.journal}, Vol. ${data.volume}, Issue ${data.issue}, p. ${data.page}`
+            ) : (
+              <span>
+                <span class="todo-badge">[TODO: Verify journal name]</span> (Vol. {data.volume}, Issue {data.issue}, p. {data.page})
+              </span>
+            )}
+          </dd>
+        </div>
+
+        <div>
+          <dt data-i18n="publications.yearLabel" class="inline font-mono text-xs text-muted">Year</dt>:
+          <dd class="inline text-ink">
+            {data.year ? data.year : <span class="todo-badge">[TODO: Year]</span>}
+          </dd>
+        </div>
+
+        <div>
+          <dt data-i18n="publications.doiLabel" class="inline font-mono text-xs text-muted">DOI</dt>:
+          <dd class="inline text-ink">
+            {data.doi ? data.doi : <span class="todo-badge">[TODO: DOI]</span>}
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <a
+      href={data.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-i18n="publications.readPaper"
+      class="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded border border-accent px-4 py-2 text-sm font-medium text-accent hover:bg-accent hover:text-white dark:hover:text-slate-950"
+    >
+      Read paper
+    </a>
+  </div>
+</article>

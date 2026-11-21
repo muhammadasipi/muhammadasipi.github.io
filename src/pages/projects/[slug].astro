@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects
+    .filter((p) => Boolean(p.data.summary || p.data.problem || p.data.methods || p.data.results || p.data.limitations))
+    .map((project) => ({
+      params: { slug: project.slug },
+      props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await project.render();
+const notes = (await getCollection('notes')).filter((n) => !n.data.draft);
+---
+
+<BaseLayout title={`${data.title} | M Asipi Qostolani`} description={data.summary ?? data.title} hasNotes={notes.length > 0}>
+  <article class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    <a
+      href="/#projects"
+      data-i18n="projects.case.back"
+      class="inline-flex min-h-[44px] items-center font-mono text-xs text-accent hover:underline"
+    >
+      &larr; Back to Projects
+    </a>
+
+    <header class="mt-4 border-b border-border pb-6">
+      {data.status && (
+        <span
+          data-i18n={`projects.status.${data.status}`}
+          class="inline-block rounded border border-accent px-2.5 py-0.5 font-mono text-xs text-accent"
+        >
+          {data.status === 'completed' ? 'Completed' : 'In Progress'}
+        </span>
+      )}
+      <h1 class="mt-3 font-serif text-3xl font-normal leading-tight text-ink sm:text-4xl">
+        {data.title}
+      </h1>
+      {data.summary && <p class="mt-4 text-base leading-relaxed text-muted">{data.summary}</p>}
+    </header>
+
+    <div class="mt-8 space-y-8 text-base leading-relaxed text-ink">
+      {data.problem && (
+        <section>
+          <h2 data-i18n="projects.case.problem" class="font-serif text-xl font-normal text-ink">Problem Statement</h2>
+          <p class="mt-2 text-muted">{data.problem}</p>
+        </section>
+      )}
+
+      {data.methods && (
+        <section>
+          <h2 data-i18n="projects.case.methods" class="font-serif text-xl font-normal text-ink">Methodology</h2>
+          <p class="mt-2 text-muted">{data.methods}</p>
+        </section>
+      )}
+
+      {data.results && (
+        <section>
+          <h2 data-i18n="projects.case.results" class="font-serif text-xl font-normal text-ink">Key Results</h2>
+          <p class="mt-2 text-muted">{data.results}</p>
+        </section>
+      )}
+
+      <section class="rounded border border-accent/60 bg-elevated p-5">
+        <h2 data-i18n="projects.case.limitations" class="font-serif text-xl font-normal text-ink">
+          Limitations &amp; Scope Constraints
+        </h2>
+        <p class="mt-2 text-sm text-muted">
+          {data.limitations ?? '[TODO: Document model assumptions and experimental limitations]'}
+        </p>
+      </section>
+
+      {data.nextSteps && (
+        <section>
+          <h2 data-i18n="projects.case.nextSteps" class="font-serif text-xl font-normal text-ink">Next Steps</h2>
+          <p class="mt-2 text-muted">{data.nextSteps}</p>
+        </section>
+      )}
+
+      <div class="prose max-w-none">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

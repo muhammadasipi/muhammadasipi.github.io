@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { data, slug } = project;
+const hasDetails = Boolean(
+  data.summary || data.problem || data.methods || data.results || data.limitations
+);
+---
+
+<article class="flex flex-col justify-between rounded border border-border bg-elevated p-6">
+  <div>
+    <div class="mb-4 flex items-center justify-between gap-3">
+      <span class="font-mono text-xs text-muted">
+        0{data.order}
+      </span>
+      {hasDetails && data.status ? (
+        <span
+          data-i18n={`projects.status.${data.status}`}
+          class="rounded border border-accent px-2.5 py-0.5 font-mono text-xs text-accent"
+        >
+          {data.status === 'completed' ? 'Completed' : 'In Progress'}
+        </span>
+      ) : (
+        <span
+          data-i18n="projects.comingSoon"
+          class="rounded border border-border bg-surface px-2.5 py-0.5 font-mono text-xs text-muted"
+        >
+          Details coming soon
+        </span>
+      )}
+    </div>
+
+    <h3 class="font-serif text-xl font-normal leading-snug text-ink">
+      {hasDetails ? (
+        <a href={`/projects/${slug}`} class="hover:text-accent hover:underline">
+          {data.title}
+        </a>
+      ) : (
+        <span>{data.title}</span>
+      )}
+    </h3>
+
+    {hasDetails && data.summary && (
+      <p class="mt-3 text-sm leading-relaxed text-muted">{data.summary}</p>
+    )}
+  </div>
+
+  {hasDetails && (
+    <div class="mt-6 border-t border-border pt-4">
+      <a
+        href={`/projects/${slug}`}
+        data-i18n="projects.readCaseStudy"
+        class="inline-flex min-h-[44px] items-center font-mono text-xs font-medium text-accent hover:underline"
+      >
+        Read case study &rarr;
+      </a>
+    </div>
+  )}
+</article>
