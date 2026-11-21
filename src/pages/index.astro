@@ -20,24 +20,44 @@ const researchAreas = [
 const skillGroups = [
   {
     key: 'skills.cat1',
-    items: ['Phase-Field Modeling', 'Cahn-Hilliard Equation', 'Flory-Huggins Thermodynamics', 'Phase Separation Kinetics'],
+    descKey: 'skills.cat1.desc',
+    items: [
+      'Cahn-Hilliard Phase-Field Modeling',
+      'Flory-Huggins Thermodynamics',
+      'Coupled Fluid Flow / Advection-Diffusion',
+      'Vitrification & Gelation Kinetics',
+    ],
   },
   {
     key: 'skills.cat2',
-    items: ['Python', 'NumPy', 'CUDA / GPU Computing', 'Google Colab', 'Spectral & Finite-Difference Solvers'],
+    descKey: 'skills.cat2.desc',
+    items: [
+      'Python (NumPy, SciPy, Matplotlib)',
+      'CUDA / GPU Acceleration',
+      'Numba (JIT)',
+      'Spectral (FFT/DCT) & Finite-Difference Solvers',
+      'Git & Linux Environment',
+    ],
   },
   {
     key: 'skills.cat3',
-    items: ['Polymeric Membranes', 'PVDF Systems', 'Non-Solvent Induced Phase Separation (NIPS)', 'Membrane Morphology & Macrovoids'],
+    descKey: 'skills.cat3.desc',
+    items: [
+      'Non-Solvent Induced Phase Separation (NIPS)',
+      'Combined Crystallization & Diffusion (CCD)',
+      'Electrospinning',
+      'Nanocomposite Formulation (PVDF, PVDF-HFP)',
+    ],
   },
   {
     key: 'skills.cat4',
+    descKey: 'skills.cat4.desc',
     items: [
-      'Phase Inversion Membrane Fabrication',
-      'Electrospinning',
       'Scanning Electron Microscopy (SEM)',
-      'Water Contact Angle Measurement',
-      'Membrane Distillation (MD) Flux Testing',
+      'Water Contact Angle (WCA)',
+      'Membrane Distillation (MD) Flux & Salt Rejection',
+      'Pore Size & Porosity Analysis',
+      'General Materials Characterization (Thermal, Structural & Spectroscopic)',
     ],
   },
 ];
@@ -146,6 +166,9 @@ const skillGroups = [
             <h3 data-i18n={group.key} class="font-sans text-lg font-semibold tracking-tight text-ink">
               {group.key}
             </h3>
+            <p data-i18n={group.descKey} class="mt-1.5 text-sm leading-relaxed text-muted">
+              Category overview
+            </p>
             <ul class="mt-4 flex flex-wrap gap-2">
               {group.items.map((item) => (
                 <li class="rounded border border-border bg-surface px-3 py-1 font-mono text-xs text-ink">
