@@ -13,7 +13,6 @@ export default {
         border: 'var(--color-border)',
       },
       fontFamily: {
-        serif: ['Newsreader', 'Georgia', 'serif'],
         sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },

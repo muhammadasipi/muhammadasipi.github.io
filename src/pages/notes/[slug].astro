@@ -23,7 +23,7 @@ const { Content } = await note.render();
       <time datetime={note.data.date.toISOString()} class="font-mono text-xs text-muted">
         {note.data.date.toISOString().slice(0, 10)}
       </time>
-      <h1 class="mt-2 font-serif text-3xl font-normal text-ink">{note.data.title}</h1>
+      <h1 class="mt-2 font-sans text-3xl font-bold tracking-tight text-ink">{note.data.title}</h1>
     </header>
     <div class="mt-8 space-y-4 text-base leading-relaxed text-ink">
       <Content />
