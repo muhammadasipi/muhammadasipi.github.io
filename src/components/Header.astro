@@ -3,6 +3,16 @@ interface Props {
   hasNotes?: boolean;
 }
 const { hasNotes = false } = Astro.props;
+
+const links = [
+  { href: '/#about', key: 'nav.about', label: 'About' },
+  { href: '/#research', key: 'nav.research', label: 'Research' },
+  { href: '/#projects', key: 'nav.projects', label: 'Projects' },
+  { href: '/#publications', key: 'nav.publications', label: 'Publications' },
+  { href: '/#skills', key: 'nav.skills', label: 'Skills' },
+  ...(hasNotes ? [{ href: '/notes', key: 'nav.notes', label: 'Notes' }] : []),
+  { href: '/#contact', key: 'nav.contact', label: 'Contact' },
+];
 ---
 
 <header class="sticky top-0 z-30 border-b border-border bg-surface/95 backdrop-blur-sm">
@@ -15,15 +25,9 @@ const { hasNotes = false } = Astro.props;
     </a>
 
     <nav aria-label="Primary" class="hidden items-center gap-1 md:flex">
-      <a href="/#about" data-i18n="nav.about" class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">About</a>
-      <a href="/#research" data-i18n="nav.research" class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">Research</a>
-      <a href="/#projects" data-i18n="nav.projects" class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">Projects</a>
-      <a href="/#publications" data-i18n="nav.publications" class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">Publications</a>
-      <a href="/#skills" data-i18n="nav.skills" class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">Skills</a>
-      {hasNotes && (
-        <a href="/notes" data-i18n="nav.notes" class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">Notes</a>
-      )}
-      <a href="/#contact" data-i18n="nav.contact" class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">Contact</a>
+      {links.map((l) => (
+        <a href={l.href} data-i18n={l.key} class="inline-flex min-h-[44px] items-center px-3 text-sm text-muted hover:text-ink">{l.label}</a>
+      ))}
     </nav>
 
     <div class="flex items-center gap-2">
@@ -45,6 +49,36 @@ const { hasNotes = false } = Astro.props;
         <span class="dark:hidden">Dark</span>
         <span class="hidden dark:inline">Light</span>
       </button>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded border border-border bg-elevated text-ink hover:border-accent hover:text-accent md:hidden"
+      >
+        <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+        <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
     </div>
   </div>
+
+  <nav id="mobile-menu" aria-label="Mobile" class="hidden border-t border-border bg-surface md:hidden">
+    <ul class="mx-auto max-w-5xl px-4 py-2 sm:px-6">
+      {links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            data-i18n={l.key}
+            class="flex min-h-[44px] items-center border-b border-border/60 text-base text-ink last:border-b-0 hover:text-accent"
+          >{l.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 </header>
