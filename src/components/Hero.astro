@@ -11,6 +11,7 @@ const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [0, 6], [0, 7], [1, 7], [
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1600 600"
       preserveAspectRatio="xMaxYMin slice"
+      id="hero-network"
       class="h-full w-full text-[#4d96a1] opacity-40 dark:text-accent dark:opacity-25"
     >
       <g stroke="currentColor" stroke-width="1.35" stroke-opacity="0.65">
@@ -24,6 +25,7 @@ const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [0, 6], [0, 7], [1, 7], [
         ))}
       </g>
     </svg>
+    <canvas id="phase-canvas" class="block h-full w-full"></canvas>
   </div>
 
   <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
@@ -92,3 +94,153 @@ const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [0, 6], [0, 7], [1, 7], [
     </div>
   </div>
 </section>
+
+<script>
+  // Background: a small Cahn-Hilliard (spinodal decomposition) simulation, the same
+  // physics that forms pores in a membrane. Explicit finite differences on a periodic
+  // grid, c_t = M * laplacian( c^3 - c - kappa * laplacian(c) ).
+  // Runs for a limited time, pauses when off-screen, and is a still frame when the
+  // visitor prefers reduced motion. The static SVG network is the fallback.
+  const canvas = document.getElementById('phase-canvas') as HTMLCanvasElement | null;
+  const host = canvas ? canvas.parentElement : null;
+  const ctx = canvas ? canvas.getContext('2d') : null;
+
+  if (canvas && host && ctx) {
+    const CELL = 8; // CSS pixels per grid cell
+    const MAX_CELLS = 24000;
+    const DT = 0.01;
+    const KAPPA = 1;
+    const STEPS_PER_FRAME = 10;
+    const MAX_STEPS = 20000; // about 30 s at 60 fps, then the pattern is left as is
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let nx = 0;
+    let ny = 0;
+    let c = new Float32Array(0);
+    let mu = new Float32Array(0);
+    let tmp = new Float32Array(0);
+    let steps = 0;
+    let raf = 0;
+    let inView = true;
+    let lastWidth = 0;
+
+    function laplacian(src: Float32Array, dst: Float32Array) {
+      for (let y = 0; y < ny; y++) {
+        const up = ((y + ny - 1) % ny) * nx;
+        const down = ((y + 1) % ny) * nx;
+        const row = y * nx;
+        for (let x = 0; x < nx; x++) {
+          const l = (x + nx - 1) % nx;
+          const r = (x + 1) % nx;
+          dst[row + x] = src[row + l] + src[row + r] + src[up + x] + src[down + x] - 4 * src[row + x];
+        }
+      }
+    }
+
+    function step() {
+      laplacian(c, tmp);
+      for (let i = 0; i < c.length; i++) {
+        const v = c[i];
+        mu[i] = v * v * v - v - KAPPA * tmp[i];
+      }
+      laplacian(mu, tmp);
+      for (let i = 0; i < c.length; i++) c[i] += DT * tmp[i];
+      steps++;
+    }
+
+    function accentRgb(): [number, number, number] {
+      const hex = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim();
+      const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);
+      return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : [15, 76, 129];
+    }
+
+    function draw() {
+      const [r, g, b] = accentRgb();
+      const isDark = document.documentElement.classList.contains('dark');
+      const maxAlpha = (isDark ? 0.14 : 0.16) * 255;
+      const img = ctx!.createImageData(nx, ny);
+      const d = img.data;
+      for (let i = 0; i < c.length; i++) {
+        const t = Math.min(1, Math.max(0, (c[i] + 0.6) / 1.2));
+        const a = t * t * (3 - 2 * t); // smoothstep
+        d[i * 4] = r;
+        d[i * 4 + 1] = g;
+        d[i * 4 + 2] = b;
+        d[i * 4 + 3] = a * maxAlpha;
+      }
+      ctx!.putImageData(img, 0, 0);
+    }
+
+    function setup() {
+      const w = host!.clientWidth;
+      const h = host!.clientHeight;
+      if (!w || !h) return false;
+      let cell = CELL;
+      while ((w / cell) * (h / cell) > MAX_CELLS) cell += 1;
+      nx = Math.max(16, Math.ceil(w / cell));
+      ny = Math.max(16, Math.ceil(h / cell));
+      canvas!.width = nx;
+      canvas!.height = ny;
+      c = new Float32Array(nx * ny);
+      mu = new Float32Array(nx * ny);
+      tmp = new Float32Array(nx * ny);
+      for (let i = 0; i < c.length; i++) c[i] = 0.1 + (Math.random() - 0.5) * 0.1;
+      steps = 0;
+      lastWidth = w;
+      return true;
+    }
+
+    function frame() {
+      raf = 0;
+      if (!inView || document.hidden) return;
+      for (let i = 0; i < STEPS_PER_FRAME; i++) step();
+      draw();
+      if (steps < MAX_STEPS) raf = requestAnimationFrame(frame);
+    }
+
+    function play() {
+      if (!raf && steps < MAX_STEPS && inView && !document.hidden) raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      if (!setup()) return;
+      document.documentElement.classList.add('phase-bg');
+      if (reduceMotion) {
+        // Fast-forward to a formed pattern without blocking one frame, then stay still.
+        const chunk = () => {
+          for (let i = 0; i < 100; i++) step();
+          if (steps < 1800) requestAnimationFrame(chunk);
+          else draw();
+        };
+        chunk();
+      } else {
+        draw();
+        play();
+      }
+    }
+
+    new IntersectionObserver((entries) => {
+      inView = entries.some((e) => e.isIntersecting);
+      if (inView) play();
+    }).observe(host);
+    document.addEventListener('visibilitychange', play);
+
+    let resizeTimer = 0;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        if (Math.abs(host.clientWidth - lastWidth) > 40) start();
+      }, 250);
+    });
+
+    // Redraw with the right colour when the theme changes.
+    new MutationObserver(() => {
+      if (nx) draw();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    window.addEventListener('phase:restart', start);
+    start();
+  }
+</script>

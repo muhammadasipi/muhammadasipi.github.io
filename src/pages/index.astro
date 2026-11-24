@@ -69,7 +69,7 @@ const otherTools = ['Git', 'Linux'];
 
   <section id="about" class="border-b border-border py-14 sm:py-16">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
+      <div class="reveal grid grid-cols-1 gap-8 md:grid-cols-12">
         <div class="md:col-span-4">
           <h2 data-i18n="about.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">About</h2>
         </div>
@@ -96,7 +96,7 @@ const otherTools = ['Git', 'Linux'];
 
   <section id="research" class="border-b border-border py-14 sm:py-16">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
-      <div class="mb-8 max-w-[65ch]">
+      <div class="reveal mb-8 max-w-[65ch]">
         <h2 data-i18n="research.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">Research Directions</h2>
         <p data-i18n="research.subtitle" class="mt-2 text-sm text-muted">
           Current scientific focus areas across membrane engineering and computational modeling.
@@ -105,7 +105,7 @@ const otherTools = ['Git', 'Linux'];
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {researchAreas.map((area) => (
-          <div class="rounded border border-border bg-elevated p-6">
+          <div class="reveal rounded border border-border bg-elevated p-6">
             <span class="font-mono text-xs text-accent">{area.code}</span>
             <h3 data-i18n={`research.${area.key}.title`} class="mt-2 font-sans text-lg font-semibold tracking-tight text-ink">
               {t[`research.${area.key}.title` as keyof typeof t]}
@@ -121,7 +121,7 @@ const otherTools = ['Git', 'Linux'];
 
   <section id="projects" class="border-b border-border py-14 sm:py-16">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
-      <div class="mb-8 max-w-[65ch]">
+      <div class="reveal mb-8 max-w-[65ch]">
         <h2 data-i18n="projects.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">Featured Projects</h2>
         <p data-i18n="projects.subtitle" class="mt-2 text-sm text-muted">
           Case studies will publish with full methodology, results, and explicit model limitations once finalized.
@@ -138,7 +138,7 @@ const otherTools = ['Git', 'Linux'];
 
   <section id="publications" class="border-b border-border py-14 sm:py-16">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
-      <div class="mb-8">
+      <div class="reveal mb-8">
         <h2 data-i18n="publications.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">Publications</h2>
       </div>
 
@@ -152,7 +152,7 @@ const otherTools = ['Git', 'Linux'];
         <h3 data-i18n="conferences.heading" class="font-sans text-lg font-semibold tracking-tight text-ink">
           Conference Presentations
         </h3>
-        <div class="mt-4 rounded border border-border bg-elevated p-5">
+        <div class="reveal mt-4 rounded border border-border bg-elevated p-5">
           <p data-i18n="conferences.eds2025.title" class="font-sans text-base font-semibold leading-snug text-ink">
             Unidirectional porous membrane prepared by combined crystallization and diffusion method for desalination
           </p>
@@ -172,13 +172,13 @@ const otherTools = ['Git', 'Linux'];
 
   <section id="skills" class="border-b border-border py-14 sm:py-16">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
-      <div class="mb-8">
+      <div class="reveal mb-8">
         <h2 data-i18n="skills.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">Technical Capabilities</h2>
       </div>
 
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         {coreSkills.map((skill) => (
-          <div class="flex flex-col rounded border border-border bg-elevated p-6">
+          <div class="reveal flex flex-col rounded border border-border bg-elevated p-6">
             <h3 data-i18n={`${skill.key}.title`} class="font-sans text-lg font-semibold leading-snug tracking-tight text-ink">
               {t[`${skill.key}.title` as keyof typeof t]}
             </h3>
@@ -209,7 +209,7 @@ const otherTools = ['Git', 'Linux'];
 
   <section id="education" class="border-b border-border py-14 sm:py-16">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
+      <div class="reveal grid grid-cols-1 gap-8 md:grid-cols-12">
         <div class="md:col-span-4">
           <h2 data-i18n="education.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">
             Education &amp; Academic Record
@@ -252,7 +252,7 @@ const otherTools = ['Git', 'Linux'];
 
   <section id="contact" class="py-14 sm:py-16">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
-      <div class="mb-8">
+      <div class="reveal mb-8">
         <h2 data-i18n="contact.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">Contact</h2>
       </div>
       <ContactForm />
