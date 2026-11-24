@@ -1,5 +1,8 @@
 ---
 import { site } from '../site.config';
+
+const nodes = [[1002, 57.2, 6.2], [1137, 50.4, 4.8], [1226, 44.2, 4.4], [1364, 41.1, 6.6], [1447, 49.8, 4.8], [1583, 38.0, 4.2], [1013, 112.4, 3.2], [1109, 104.3, 3.6], [1212, 111.1, 4.8], [1335, 129.8, 5.2], [1496, 121.1, 3.4], [1595, 116.7, 3.6], [1028, 181.3, 3.0], [1149, 177.0, 3.8], [1265, 186.3, 3.4], [1366, 193.7, 5.2], [1488, 206.1, 5.6], [1600, 180.1, 4.2], [1023, 274.4, 7.2], [1141, 252.0, 4.4], [1222, 258.2, 4.2], [1326, 250.8, 6.8], [1477, 252.0, 3.2], [1600, 261.4, 2.5], [1022, 335.8, 4.8], [1121, 327.7, 3.2], [1217, 351.3, 4.8], [1370, 320.3, 5.0], [1481, 322.8, 5.4], [1600, 325.3, 2.5], [1026, 407.1, 4.0], [1122, 416.4, 5.0], [1227, 389.7, 3.4], [1364, 398.4, 4.2], [1453, 403.4, 5.6], [1596, 409.6, 4.6], [1002, 482.7, 3.6], [1150, 479.0, 4.8], [1223, 474.0, 5.8], [1366, 459.1, 6.2], [1461, 492.6, 5.6], [1566, 492.6, 4.2], [1001, 533.5, 3.8], [1100, 544.7, 5.6], [1264, 559.5, 5.6], [1369, 533.5, 4.0], [1471, 549.6, 3.4], [1580, 562.0, 3.2]];
+const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [0, 6], [0, 7], [1, 7], [1, 8], [2, 8], [3, 9], [4, 10], [5, 11], [6, 7], [7, 8], [8, 9], [10, 11], [6, 12], [7, 12], [7, 13], [8, 13], [8, 14], [9, 14], [9, 15], [10, 16], [10, 17], [11, 17], [12, 13], [13, 14], [14, 15], [15, 16], [16, 17], [13, 19], [14, 20], [14, 21], [15, 21], [15, 22], [16, 22], [18, 19], [19, 20], [20, 21], [22, 23], [18, 24], [18, 25], [19, 25], [21, 27], [22, 28], [24, 25], [25, 26], [27, 28], [28, 29], [24, 30], [25, 32], [27, 33], [30, 31], [31, 32], [32, 33], [33, 34], [34, 35], [30, 36], [31, 37], [31, 38], [32, 38], [33, 39], [34, 39], [34, 40], [35, 40], [35, 41], [36, 37], [37, 38], [38, 39], [39, 40], [40, 41], [36, 42], [36, 43], [37, 43], [38, 44], [39, 45], [40, 45], [40, 46], [41, 46], [41, 47], [42, 43], [44, 45], [45, 46], [46, 47]];
 ---
 
 <section class="relative overflow-hidden border-b border-border py-14 sm:py-20">
@@ -11,56 +14,77 @@ import { site } from '../site.config';
       class="h-full w-full text-[#4d96a1] opacity-40 dark:text-accent dark:opacity-25"
     >
       <g stroke="currentColor" stroke-width="1.35" stroke-opacity="0.65">
-        <line x1="1002" y1="57.2" x2="1137" y2="50.4" />
-        <line x1="1137" y1="50.4" x2="1226" y2="44.2" />
-        <line x1="1226" y1="44.2" x2="1364" y2="41.1" />
-        <line x1="1364" y1="41.1" x2="1447" y2="49.8" />
-        <line x1="1447" y1="49.8" x2="1583" y2="38.0" />
-        <line x1="1002" y1="57.2" x2="1013" y2="112.4" />
-        <line x1="1002" y1="57.2" x2="1109" y2="104.3" />
-        <line x1="1137" y1="50.4" x2="1109" y2="104.3" />
-        <line x1="1137" y1="50.4" x2="1212" y2="111.1" />
-        <line x1="1226" y1="44.2" x2="1212" y2="111.1" />
-        <line x1="1364" y1="41.1" x2="1335" y2="129.8" />
-        <line x1="1447" y1="49.8" x2="1496" y2="121.1" />
-        <line x1="1583" y1="38.0" x2="1595" y2="116.7" />
-        <line x1="1013" y1="112.4" x2="1109" y2="104.3" />
-        <line x1="1109" y1="104.3" x2="1212" y2="111.1" />
-        <line x1="1212" y1="111.1" x2="1335" y2="129.8" />
-        <line x1="1496" y1="121.1" x2="1595" y2="116.7" />
-        <line x1="1013" y1="112.4" x2="1028" y2="181.3" />
-        <line x1="1109" y1="104.3" x2="1028" y2="181.3" />
-        <line x1="1109" y1="104.3" x2="1149" y2="177.0" />
-        <line x1="1212" y1="111.1" x2="1149" y2="177.0" />
-        <line x1="1212" y1="111.1" x2="1265" y2="186.3" />
-        <line x1="1335" y1="129.8" x2="1265" y2="186.3" />
-        <line x1="1335" y1="129.8" x2="1366" y2="193.7" />
-        <line x1="1496" y1="121.1" x2="1488" y2="206.1" />
-        <line x1="1496" y1="121.1" x2="1600" y2="180.1" />
-        <line x1="1595" y1="116.7" x2="1600" y2="180.1" />
-        <line x1="1028" y1="181.3" x2="1149" y2="177.0" />
-        <line x1="1149" y1="177.0" x2="1265" y2="186.3" />
-        <line x1="1265" y1="186.3" x2="1366" y2="193.7" />
-        <line x1="1366" y1="193.7" x2="1488" y2="206.1" />
-        <line x1="1488" y1="206.1" x2="1600" y2="180.1" />
-        <line x1="1149" y1="177.0" x2="1141" y2="252.0" />
-        <line x1="1265" y1="186.3" x2="1222" y2="258.2" />
-        <line x1="1265" y1="186.3" x2="1326" y2="250.8" />
-        <line x1="1366" y1="193.7" x2="1326" y2="250.8" />
-        <line x1="1366" y1="193.7" x2="1477" y2="252.0" />
-        <line x1="1488" y1="206.1" x2="1477" y2="252.0" />
-        <line x1="1023" y1="274.4" x2="1141" y2="252.0" />
-        <line x1="1141" y1="252.0" x2="1222" y2="258.2" />
-        <line x1="1222" y1="258.2" x2="1326" y2="250.8" />
-        <line x1="1477" y1="252.0" x2="1600" y2="261.4" />
-        <line x1="1023" y1="274.4" x2="1022" y2="335.8" />
-        <line x1="1023" y1="274.4" x2="1121" y2="327.7" />
-        <line x1="1141" y1="252.0" x2="1121" y2="327.7" />
-        <line x1="1326" y1="250.8" x2="1370" y2="320.3" />
-        <line x1="1477" y1="252.0" x2="1481" y2="322.8" />
-        <line x1="1022" y1="335.8" x2="1121" y2="327.7" />
-        <line x1="1121" y1="327.7" x2="1217" y2="351.3" />
-        <line x1="1370" y1="320.3" x2="1481" y2="322.8" />
-        <line x1="1481" y1="322.8" x2="1600" y2="325.3" />
-        <line x1="1022" y1="335.8" x2="1026" y2="407.1" />
-        <line x1="1121" y1="327.
+        {edges.map(([u, v]) => (
+          <line x1={nodes[u][0]} y1={nodes[u][1]} x2={nodes[v][0]} y2={nodes[v][1]} />
+        ))}
+      </g>
+      <g fill="currentColor" fill-opacity="0.85">
+        {nodes.map(([x, y, r]) => (
+          <circle cx={x} cy={y} r={r} />
+        ))}
+      </g>
+    </svg>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
+    <div class="flex flex-col-reverse items-start justify-between gap-8 md:flex-row md:items-center">
+      <div class="max-w-[65ch]">
+        <p class="mb-3 font-mono text-xs uppercase tracking-wider text-accent">
+          MS Materials Science and Engineering, KFUPM
+        </p>
+        <h1 class="font-sans text-3xl font-bold tracking-tight text-ink sm:text-5xl sm:leading-[1.15]">
+          M Asipi Qostolani
+        </h1>
+        <p data-i18n="hero.role" class="mt-4 text-lg leading-relaxed text-muted sm:text-xl">
+          Membrane and materials researcher: membrane distillation, desalination, and computational modeling
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a
+            href="#research"
+            data-i18n="hero.cta.research"
+            class="inline-flex min-h-[44px] items-center justify-center rounded bg-accent px-5 py-2.5 text-sm font-medium text-white dark:text-slate-950 hover:opacity-90"
+          >
+            View Research
+          </a>
+          <a
+            href="#contact"
+            data-i18n="hero.cta.contact"
+            class="inline-flex min-h-[44px] items-center justify-center rounded border border-border bg-elevated px-5 py-2.5 text-sm font-medium text-ink hover:border-accent hover:text-accent"
+          >
+            Contact Me
+          </a>
+          {site.cvUrl && (
+            <a
+              href={site.cvUrl}
+              download
+              data-i18n="hero.cta.cv"
+              class="inline-flex min-h-[44px] items-center justify-center rounded border border-border px-5 py-2.5 text-sm font-medium text-ink hover:border-accent hover:text-accent"
+            >
+              Download CV
+            </a>
+          )}
+        </div>
+      </div>
+
+      {site.photoUrl ? (
+        <img
+          src={site.photoUrl}
+          alt="Portrait of M Asipi Qostolani"
+          width="176"
+          height="176"
+          style="width: 176px; height: 176px; object-fit: cover; object-position: top;"
+          class="shrink-0 rounded border border-border bg-elevated ring-1 ring-border"
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          style="width: 176px; height: 176px;"
+          class="flex shrink-0 items-center justify-center rounded border border-border bg-elevated ring-1 ring-border"
+        >
+          <span class="font-sans text-2xl font-semibold tracking-tight text-accent">MAQ</span>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
