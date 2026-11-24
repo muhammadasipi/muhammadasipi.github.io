@@ -19,7 +19,7 @@ Open `http://localhost:4321` in your browser.
 2. **Publications (`src/content/publications/*.md`):**
    - Update metadata fields (`journal`, `year`, `doi`, `authors`) directly in the Markdown frontmatter.
 3. **Research Notes (`src/content/notes/*.mdx`):**
-   - Add `.mdx` files with `draft: false` to publish technical notes with KaTeX math (`$...$` and `$$...$$`). The `Notes` navigation link appears automatically once at least one published note exists.
+   - Add `.mdx` files (use the `notes` collection schema) with `draft: false` to publish technical notes with KaTeX math (`$...$` and `$$...$$`). The `Notes` navigation link appears automatically once at least one published note exists.
 
 ## Deploying to GitHub Pages
 
@@ -28,9 +28,10 @@ Open `http://localhost:4321` in your browser.
 3. Under **Build and deployment > Source**, switch from `Deploy from a branch` to **GitHub Actions**.
 4. Every push to `main` automatically builds and deploys the site.
 
-## Remaining `[TODO]` Items to Complete
+## Remaining Items
 
-- [ ] **Profile Photo:** Add an optimized WebP/AVIF portrait to `public/images/profile.webp` and replace the placeholder in `src/components/Hero.astro`.
-- [ ] **CV PDF:** Add your CV file to `public/cv-m-asipi-qostolani.pdf` and replace the `Download CV [TODO]` badge in `Hero.astro` and `ContactForm.astro` with `<a href="/cv-m-asipi-qostolani.pdf" download>`.
-- [ ] **Project Case Studies (`src/content/projects/*.md`):** Add `status`, `summary`, `problem`, `methods`, `results`, and `limitations` when ready.
-- [ ] **Contact Form (`src/components/ContactForm.astro`):** Replace `TODO_FORM_ID` with your Formspree form ID.
+- [ ] **CV PDF:** Put the file in `public/` (e.g. `public/cv-m-asipi-qostolani.pdf`) and set `cvUrl: '/cv-m-asipi-qostolani.pdf'` in `src/site.config.ts`. The Download CV buttons in the hero and contact section then appear automatically.
+- [ ] **Project Case Studies (`src/content/projects/*.md`):** Project 02 has a draft (status, summary, problem, methods, limitations, next steps) that needs your review; add `results` once you have numbers. Projects 01 and 03 still show "Details coming soon".
+- [ ] **Contact form (optional):** Create a Formspree form and set `formspreeEndpoint` in `src/site.config.ts`. Until then only email, WhatsApp, GitHub, LinkedIn and ORCID are shown.
+
+Other site settings (photo, ORCID, WhatsApp number) also live in `src/site.config.ts`.

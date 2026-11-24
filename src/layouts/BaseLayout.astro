@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { ui } from '../i18n/ui';
+import { site } from '../site.config';
 import '../styles/global.css';
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 
 const { title, description, hasNotes = false, publications = [] } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://muhammadasipi.github.io');
+const ogImage = new URL('/og-image.png', Astro.site ?? 'https://muhammadasipi.github.io').href;
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -24,6 +26,7 @@ const personSchema = {
   sameAs: [
     'https://github.com/muhammadasipi',
     'https://www.linkedin.com/in/m-asipi-qostolani-30155512b',
+    site.orcidUrl,
   ],
   address: {
     '@type': 'PostalAddress',
@@ -85,13 +88,22 @@ const articleSchemas = publications.map((pub) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="membrane technology, membrane distillation, directional pore membrane, desalination, water treatment, phase-field modeling, computational materials" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="M Asipi Qostolani" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="M Asipi Qostolani, membrane and materials researcher" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -143,6 +155,42 @@ const articleSchemas = publications.map((pub) => {
           themeBtn.addEventListener('click', () => {
             const isDark = document.documentElement.classList.toggle('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          });
+        }
+
+        const menuBtn = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        function setMenu(open) {
+          if (!menuBtn || !menu) return;
+          menu.classList.toggle('hidden', !open);
+          menuBtn.setAttribute('aria-expanded', String(open));
+          menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+          if (iconOpen) iconOpen.classList.toggle('hidden', open);
+          if (iconClose) iconClose.classList.toggle('hidden', !open);
+        }
+
+        if (menuBtn && menu) {
+          menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+          menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+              setMenu(false);
+              menuBtn.focus();
+            }
+          });
+          window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
+            if (e.matches) setMenu(false);
+          });
+        }
+
+        const waBtn = document.getElementById('whatsapp-btn');
+        if (waBtn) {
+          waBtn.addEventListener('click', () => {
+            const num = atob(waBtn.getAttribute('data-encoded') || '');
+            window.open('https://wa.me/' + num, '_blank', 'noopener,noreferrer');
           });
         }
 
