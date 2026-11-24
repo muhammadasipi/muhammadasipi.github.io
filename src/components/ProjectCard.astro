@@ -12,7 +12,13 @@ const hasDetails = Boolean(
 );
 ---
 
-<article class="flex flex-col justify-between rounded border border-border bg-elevated p-6">
+<article
+  class:list={[
+    'reveal flex flex-col justify-between rounded border border-border bg-elevated p-6',
+    hasDetails &&
+      'transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-accent',
+  ]}
+>
   <div>
     <div class="mb-4 flex items-center justify-between gap-3">
       <span class="font-mono text-xs text-muted">
