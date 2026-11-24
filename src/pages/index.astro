@@ -20,50 +20,43 @@ const researchAreas = [
   { key: 'area4', code: '04' },
 ];
 
-const skillGroups = [
+const coreSkills = [
   {
-    key: 'skills.cat1',
-    descKey: 'skills.cat1.desc',
+    key: 'skills.core1',
     items: [
-      'Cahn-Hilliard Phase-Field Modeling',
-      'Flory-Huggins Thermodynamics',
-      'Coupled Fluid Flow / Advection-Diffusion',
-      'Vitrification & Gelation Kinetics',
-    ],
-  },
-  {
-    key: 'skills.cat2',
-    descKey: 'skills.cat2.desc',
-    items: [
+      'Cahn-Hilliard',
+      'Flory-Huggins thermodynamics',
+      'Vitrification & gelation kinetics',
+      'Coupled flow (advection-diffusion)',
+      'Spectral (FFT/DCT) & finite-difference solvers',
       'Python (NumPy, SciPy, Matplotlib)',
-      'CUDA / GPU Acceleration',
-      'Numba (JIT)',
-      'Spectral (FFT/DCT) & Finite-Difference Solvers',
-      'Git & Linux Environment',
+      'CUDA / Numba',
     ],
+    link: { href: '/projects/02-nips-pvdf-phase-field', key: 'skills.core1.link' },
   },
   {
-    key: 'skills.cat3',
-    descKey: 'skills.cat3.desc',
+    key: 'skills.core2',
     items: [
       'Non-Solvent Induced Phase Separation (NIPS)',
       'Combined Crystallization & Diffusion (CCD)',
       'Electrospinning',
-      'Nanocomposite Formulation (PVDF, PVDF-HFP)',
+      'PVDF / PVDF-HFP nanocomposites',
     ],
+    link: { href: '#publications', key: 'skills.core2.link' },
   },
   {
-    key: 'skills.cat4',
-    descKey: 'skills.cat4.desc',
+    key: 'skills.core3',
     items: [
+      'Membrane distillation flux & salt rejection',
       'Scanning Electron Microscopy (SEM)',
-      'Water Contact Angle (WCA)',
-      'Membrane Distillation (MD) Flux & Salt Rejection',
-      'Pore Size & Porosity Analysis',
-      'General Materials Characterization (Thermal, Structural & Spectroscopic)',
+      'Water contact angle (WCA)',
+      'Pore size & porosity analysis',
+      'General materials characterization (thermal, structural, spectroscopic)',
     ],
+    link: null,
   },
 ];
+const otherTools = ['Git', 'Linux'];
 ---
 
 <BaseLayout
@@ -183,25 +176,34 @@ const skillGroups = [
         <h2 data-i18n="skills.heading" class="font-sans text-2xl font-semibold tracking-tight text-ink">Technical Capabilities</h2>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {skillGroups.map((group) => (
-          <div class="rounded border border-border bg-elevated p-6">
-            <h3 data-i18n={group.key} class="font-sans text-lg font-semibold tracking-tight text-ink">
-              {t[group.key as keyof typeof t]}
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {coreSkills.map((skill) => (
+          <div class="flex flex-col rounded border border-border bg-elevated p-6">
+            <h3 data-i18n={`${skill.key}.title`} class="font-sans text-lg font-semibold leading-snug tracking-tight text-ink">
+              {t[`${skill.key}.title` as keyof typeof t]}
             </h3>
-            <p data-i18n={group.descKey} class="mt-1.5 text-sm leading-relaxed text-muted">
-              {t[group.descKey as keyof typeof t]}
+            <p data-i18n={`${skill.key}.desc`} class="mt-2 text-sm leading-relaxed text-muted">
+              {t[`${skill.key}.desc` as keyof typeof t]}
             </p>
-            <ul class="mt-4 flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <li class="rounded border border-border bg-surface px-3 py-1 font-mono text-xs text-ink">
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <p class="mt-4 font-mono text-xs leading-relaxed text-ink">
+              {skill.items.join(' · ')}
+            </p>
+            {skill.link && (
+              <a
+                href={skill.link.href}
+                class="mt-auto inline-flex min-h-[44px] items-end gap-1 pt-4 font-mono text-xs font-medium text-accent hover:underline"
+              >
+                <span data-i18n={skill.link.key}>{t[skill.link.key as keyof typeof t]}</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            )}
           </div>
         ))}
       </div>
+
+      <p class="mt-6 font-mono text-xs text-muted">
+        <span data-i18n="skills.tools">Also</span>: {otherTools.join(' · ')}
+      </p>
     </div>
   </section>
 
