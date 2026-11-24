@@ -27,7 +27,26 @@ const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [0, 6], [0, 7], [1, 7], [
   </div>
 
   <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
-    <div class="flex flex-col-reverse items-start justify-between gap-8 md:flex-row md:items-center">
+    <div class="flex flex-col items-start gap-8 md:flex-row md:items-center md:gap-10">
+      {site.photoUrl ? (
+        <img
+          src={site.photoUrl}
+          alt="Portrait of M Asipi Qostolani"
+          width="176"
+          height="176"
+          style="width: 176px; height: 176px; object-fit: cover; object-position: top;"
+          class="shrink-0 rounded border border-border bg-elevated ring-1 ring-border"
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          style="width: 176px; height: 176px;"
+          class="flex shrink-0 items-center justify-center rounded border border-border bg-elevated ring-1 ring-border"
+        >
+          <span class="font-sans text-2xl font-semibold tracking-tight text-accent">MAQ</span>
+        </div>
+      )}
+
       <div class="max-w-[65ch]">
         <p class="mb-3 font-mono text-xs uppercase tracking-wider text-accent">
           MS Materials Science and Engineering, KFUPM
@@ -66,25 +85,6 @@ const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [0, 6], [0, 7], [1, 7], [
           )}
         </div>
       </div>
-
-      {site.photoUrl ? (
-        <img
-          src={site.photoUrl}
-          alt="Portrait of M Asipi Qostolani"
-          width="176"
-          height="176"
-          style="width: 176px; height: 176px; object-fit: cover; object-position: top;"
-          class="shrink-0 rounded border border-border bg-elevated ring-1 ring-border"
-        />
-      ) : (
-        <div
-          aria-hidden="true"
-          style="width: 176px; height: 176px;"
-          class="flex shrink-0 items-center justify-center rounded border border-border bg-elevated ring-1 ring-border"
-        >
-          <span class="font-sans text-2xl font-semibold tracking-tight text-accent">MAQ</span>
-        </div>
-      )}
     </div>
   </div>
 </section>
