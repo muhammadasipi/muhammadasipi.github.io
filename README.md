@@ -30,7 +30,7 @@ Open `http://localhost:4321` in your browser.
 
 ## Remaining Items
 
-- [ ] **CV PDF:** Put the file in `public/` (e.g. `public/cv-m-asipi-qostolani.pdf`) and set `cvUrl: '/cv-m-asipi-qostolani.pdf'` in `src/site.config.ts`. The Download CV buttons in the hero and contact section then appear automatically.
+- [x] **CV PDF:** `public/cv-m-asipi-qostolani.pdf` (source: re-render if the content changes; linked via `cvUrl` in `src/site.config.ts`).
 - [ ] **Project Case Studies (`src/content/projects/*.md`):** Project 02 has a draft (status, summary, problem, methods, limitations, next steps) that needs your review; add `results` once you have numbers. Projects 01 and 03 still show "Details coming soon".
 - [ ] **Contact form (optional):** Create a Formspree form and set `formspreeEndpoint` in `src/site.config.ts`. Until then only email, WhatsApp, GitHub, LinkedIn and ORCID are shown.
 
